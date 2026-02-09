@@ -1,0 +1,543 @@
+{
+  "info": {
+    "_postman_id": "fb49601c-1c99-4c28-9561-43841f2c60fa",
+    "name": "Music Streaming Project",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "51283516",
+    "_collection_link": "https://go.postman.co/collection/51283516-fb49601c-1c99-4c28-9561-43841f2c60fa?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "get",
+      "item": [
+        {
+          "name": "List all artists",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "List all songs",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Song duration",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "First 2 users",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Search artist",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Read",
+      "item": [
+        {
+          "name": "Read single user",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Read 1 playlist",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Read single song",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "post",
+      "item": [
+        {
+          "name": "Create new artist",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"name\": \"Lady Gaga\", \"country\": \"USA\" }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://dnphozvdzmiceefzsrag.supabase.co/rest/v1/artists",
+              "protocol": "https",
+              "host": [
+                "dnphozvdzmiceefzsrag",
+                "supabase",
+                "co"
+              ],
+              "path": [
+                "rest",
+                "v1",
+                "artists"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create new user",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"username\": \"jazz_lover\", \"email\": \"jazz@fan.com\" }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://dnphozvdzmiceefzsrag.supabase.co/rest/v1/users",
+              "protocol": "https",
+              "host": [
+                "dnphozvdzmiceefzsrag",
+                "supabase",
+                "co"
+              ],
+              "path": [
+                "rest",
+                "v1",
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create new playlist",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"name\": \"My Top Hits\", \"user_id\": 1 }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://dnphozvdzmiceefzsrag.supabase.co/rest/v1/playlists",
+              "protocol": "https",
+              "host": [
+                "dnphozvdzmiceefzsrag",
+                "supabase",
+                "co"
+              ],
+              "path": [
+                "rest",
+                "v1",
+                "playlists"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add song to playlist",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"playlist_id\": 1, \"song_id\": 3 }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://dnphozvdzmiceefzsrag.supabase.co/rest/v1/playlist_songs",
+              "protocol": "https",
+              "host": [
+                "dnphozvdzmiceefzsrag",
+                "supabase",
+                "co"
+              ],
+              "path": [
+                "rest",
+                "v1",
+                "playlist_songs"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  { \"title\": \"Song A\", \"duration\": 180, \"album_id\": 1 },\n  { \"title\": \"Song B\", \"duration\": 210, \"album_id\": 1 }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://dnphozvdzmiceefzsrag.supabase.co/rest/v1/songs",
+              "protocol": "https",
+              "host": [
+                "dnphozvdzmiceefzsrag",
+                "supabase",
+                "co"
+              ],
+              "path": [
+                "rest",
+                "v1",
+                "songs"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Patch",
+      "item": [
+        {
+          "name": "Update playlist name",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"name\": \"Morning Coffee Updated\" }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://dnphozvdzmiceefzsrag.supabase.co/rest/v1/playlists?playlist_id=eq.1",
+              "protocol": "https",
+              "host": [
+                "dnphozvdzmiceefzsrag",
+                "supabase",
+                "co"
+              ],
+              "path": [
+                "rest",
+                "v1",
+                "playlists"
+              ],
+              "query": [
+                {
+                  "key": "playlist_id",
+                  "value": "eq.1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update user email",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"email\": \"new_email@fan.com\" }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://dnphozvdzmiceefzsrag.supabase.co/rest/v1/users?user_id=eq.1",
+              "protocol": "https",
+              "host": [
+                "dnphozvdzmiceefzsrag",
+                "supabase",
+                "co"
+              ],
+              "path": [
+                "rest",
+                "v1",
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "user_id",
+                  "value": "eq.1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update song duration",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"duration\": 300 }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://dnphozvdzmiceefzsrag.supabase.co/rest/v1/songs?song_id=eq.1",
+              "protocol": "https",
+              "host": [
+                "dnphozvdzmiceefzsrag",
+                "supabase",
+                "co"
+              ],
+              "path": [
+                "rest",
+                "v1",
+                "songs"
+              ],
+              "query": [
+                {
+                  "key": "song_id",
+                  "value": "eq.1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "artist country",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"country\": \"UK\" }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://dnphozvdzmiceefzsrag.supabase.co/rest/v1/artists?artist_id=eq.2",
+              "protocol": "https",
+              "host": [
+                "dnphozvdzmiceefzsrag",
+                "supabase",
+                "co"
+              ],
+              "path": [
+                "rest",
+                "v1",
+                "artists"
+              ],
+              "query": [
+                {
+                  "key": "artist_id",
+                  "value": "eq.2"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Delete",
+      "item": [
+        {
+          "name": "Delete a playlist",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "https://dnphozvdzmiceefzsrag.supabase.co/rest/v1/playlists?playlist_id=eq.3",
+              "protocol": "https",
+              "host": [
+                "dnphozvdzmiceefzsrag",
+                "supabase",
+                "co"
+              ],
+              "path": [
+                "rest",
+                "v1",
+                "playlists"
+              ],
+              "query": [
+                {
+                  "key": "playlist_id",
+                  "value": "eq.3"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "https://dnphozvdzmiceefzsrag.supabase.co/rest/v1/playlist_songs?playlist_id=eq.1&song_id=eq.1",
+              "protocol": "https",
+              "host": [
+                "dnphozvdzmiceefzsrag",
+                "supabase",
+                "co"
+              ],
+              "path": [
+                "rest",
+                "v1",
+                "playlist_songs"
+              ],
+              "query": [
+                {
+                  "key": "playlist_id",
+                  "value": "eq.1"
+                },
+                {
+                  "key": "song_id",
+                  "value": "eq.1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "https://dnphozvdzmiceefzsrag.supabase.co/rest/v1/users?username=eq.IndieLover",
+              "protocol": "https",
+              "host": [
+                "dnphozvdzmiceefzsrag",
+                "supabase",
+                "co"
+              ],
+              "path": [
+                "rest",
+                "v1",
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "username",
+                  "value": "eq.IndieLover"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRucGhvenZkem1pY2VlZnpzcmFnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg5NDcxNTIsImV4cCI6MjA4NDUyMzE1Mn0.LbTXea2cC1PU1qJdU-DIK-63a3R66XM75G7k8z9jFFo",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          "pm.request.headers.add({key: \"apikey\", value: pm.environment.get(\"apikey\") || pm.collectionVariables.get(\"apikey\")});"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "apikey",
+      "value": ""
+    }
+  ]
+}

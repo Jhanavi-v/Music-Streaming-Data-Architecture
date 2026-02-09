@@ -1,0 +1,272 @@
+-- Creation of table and Inserting of data
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+
+INSERT INTO users (username, email) VALUES 
+('Swiftie2025', 'taylor@fan.com'),
+('CountryBoy', 'morgan@fan.com'),
+('PopQueen', 'sabrina@fan.com'),
+('MusicCritic', 'critic@news.com'),
+('VinylCollector', 'vinyl@shop.com'),
+('GymRat', 'workout@music.com'),
+('ChillVibes', 'relax@spotify.com'),
+('IndieLover', 'indie@blog.com'),
+('LateNightListener', 'night@music.com'),
+('RoadTripTunes', 'roadtrip@music.com');
+
+CREATE TABLE artists (
+    artist_id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    country VARCHAR(100)
+);
+
+INSERT INTO artists (name, country) VALUES 
+('Taylor Swift', 'USA'),
+('Morgan Wallen', 'USA'),
+('Sabrina Carpenter', 'USA'),
+('Billie Eilish', 'USA'),
+('Olivia Rodrigo', 'USA'),
+('The Weeknd', 'Canada'),
+('Dua Lipa', 'UK'),
+('Alex Warren', 'USA'),
+('Chappell Roan', 'USA'),
+('Lana Del Rey', 'USA');
+
+CREATE TABLE genres (
+    genre_id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL);
+
+INSERT INTO genres (name) VALUES 
+('Pop'),
+('Country'),
+('R&B'),
+('Alternative'),
+('Indie Rock'),
+('Dance'),
+('Synth-pop'),
+('Soul'),
+('Rock'),
+('Electronic');
+
+CREATE TABLE albums (
+    album_id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    release_date DATE,
+    artist_id INT REFERENCES artists(artist_id) ON DELETE CASCADE NOT NULL);
+
+INSERT INTO albums (title, release_date, artist_id) VALUES 
+('The Fate of Ophelia', '2025-02-14', 1),
+("I'm the Problem", '2025-05-16', 2),
+("Short n' Sweet Deluxe", '2025-01-10', 3),
+('Hit Me Hard and Soft', '2024-05-17', 4),
+('GUTS (Spilled)', '2024-03-22', 5),
+('Hurry Up Tomorrow', '2025-03-14', 6),
+('Radical Optimism', '2024-05-03', 7),
+("You'll Be Alright, Kid", '2025-08-15', 8),
+('The Rise and Fall of a Midwest Princess', '2023-09-22', 9),
+('Born to Die', '2012-01-27', 10);
+
+CREATE TABLE songs (
+    song_id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    duration INT NOT NULL, 
+    album_id INT REFERENCES albums(album_id) ON DELETE CASCADE NOT NULL);
+
+INSERT INTO songs (title, duration, album_id) VALUES 
+('The Fate of Ophelia', 245, 1),
+('Lies Lies Lies', 198, 2),
+('Love Somebody', 210, 2),
+('Taste', 177, 3),
+('Espresso', 171, 3),
+('Birds of a Feather', 214, 4),
+('Obsessed', 170, 5),
+('Dancing in the Flames', 220, 6),
+('Training Season', 209, 7),
+('Ordinary', 202, 8);
+
+CREATE TABLE playlists (
+    playlist_id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    user_id INT REFERENCES users(user_id) ON DELETE CASCADE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+
+INSERT INTO playlists (name, user_id) VALUES 
+('2025 Morning Coffee', 1),
+('Workout Pop', 2),
+('Midnight Melancholy', 3),
+('Global Chart Toppers', 4),
+('Country Roads 2025', 5),
+('Best of 80s Vibe', 6),
+('Indie Discoveries', 7),
+('Party Anthems', 8),
+('Late Night Drives', 9),
+('Road Trip Classics', 10);
+
+CREATE TABLE playlist_songs (
+    playlist_id INT REFERENCES playlists(playlist_id) ON DELETE CASCADE,
+    song_id INT REFERENCES songs(song_id) ON DELETE CASCADE,
+    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (playlist_id, song_id)
+);
+
+INSERT INTO playlist_songs (playlist_id, song_id) VALUES 
+(1, 1),
+(1, 4),
+(2, 5),
+(2, 9),
+(3, 6),
+(4, 1),
+(4, 2),
+(5, 3),
+(7, 10),
+(8, 8);
+
+CREATE TABLE song_genres (
+    song_id INT REFERENCES songs(song_id) ON DELETE CASCADE,
+    genre_id INT REFERENCES genres(genre_id) ON DELETE CASCADE,
+    PRIMARY KEY (song_id, genre_id)
+);
+
+INSERT INTO song_genres (song_id, genre_id) VALUES 
+(1, 1),
+(1, 7),
+(2, 2),
+(3, 2),
+(4, 1),
+(5, 1),
+(6, 4),
+(8, 6),
+(9, 6),
+(10, 5);
+
+
+-- Filtering and Sorting Songs Based on Average Duration Using Aggregate Subquery
+SELECT title, duration
+FROM songs
+WHERE duration > (
+  SELECT AVG(duration)
+  FROM songs
+)
+ORDER BY duration DESC;
+
+
+-- Inner Join (Songs + Albums)
+SELECT s.title AS song_title, a.title AS album_title
+FROM songs s
+INNER JOIN albums a ON s.album_id = a.album_id;
+
+
+-- Left Join (Users + Playlists)
+SELECT u.username, p.name AS playlist_name
+FROM users u
+LEFT JOIN playlists p ON u.user_id = p.user_id;
+
+
+-- Count (Aggregation)
+SELECT country, COUNT(*) AS artist_count
+FROM artists
+GROUP BY country;
+
+
+-- AVG (Average song duration)
+SELECT AVG(duration) AS average_song_duration
+FROM songs;
+
+
+-- SUM (Total duration per album)
+SELECT album_id, SUM(duration) AS total_album_duration
+FROM songs
+GROUP BY album_id;
+
+
+-- GROUP BY (Songs per album)
+SELECT album_id, COUNT(*) AS song_count
+FROM songs
+GROUP BY album_id;
+
+
+-- GROUP BY + HAVING
+SELECT album_id, COUNT(*) AS song_count
+FROM songs
+GROUP BY album_id
+HAVING COUNT(*) > 1;
+
+
+-- Many-to-Many Query (Playlists + Songs)
+SELECT p.name AS playlist_name, s.title AS song_title
+FROM playlists p
+JOIN playlist_songs ps ON p.playlist_id = ps.playlist_id
+JOIN songs s ON ps.song_id = s.song_id;
+
+
+-- Complex Multi-Table Query
+SELECT 
+    u.username,
+    p.name AS playlist_name,
+    s.title AS song_title,
+    a.title AS album_title
+FROM users u
+JOIN playlists p ON u.user_id = p.user_id
+JOIN playlist_songs ps ON p.playlist_id = ps.playlist_id
+JOIN songs s ON ps.song_id = s.song_id
+JOIN albums a ON s.album_id = a.album_id;
+
+
+-- Songs with Genres
+SELECT s.title AS song_title, g.name AS genre
+FROM songs s
+JOIN song_genres sg ON s.song_id = sg.song_id
+JOIN genres g ON sg.genre_id = g.genre_id;
+
+
+-- Recently Created Playlists
+SELECT name, created_at
+FROM playlists
+ORDER BY created_at DESC;
+
+
+-- Top Artists by Number of Songs
+SELECT 
+    ar.name AS artist_name,
+    COUNT(s.song_id) AS total_songs
+FROM artists ar
+JOIN albums al ON ar.artist_id = al.artist_id
+JOIN songs s ON al.album_id = s.album_id
+GROUP BY ar.name
+ORDER BY total_songs DESC;
+
+
+-- Ranking Songs by Duration for Each Artist
+WITH artist_songs AS (
+  SELECT
+    ar.name AS artist_name,
+    s.title AS song_title,
+    s.duration
+  FROM artists ar
+  JOIN albums al ON ar.artist_id = al.artist_id
+  JOIN songs s ON al.album_id = s.album_id
+)
+SELECT
+  artist_name,
+  song_title,
+  duration,
+  DENSE_RANK() OVER (
+    PARTITION BY artist_name
+    ORDER BY duration DESC
+  ) AS duration_rank
+FROM artist_songs;
+
+
+-- Most Popular Playlist Based on Total Song Duration
+SELECT
+    p.name AS playlist_name,
+    SUM(s.duration) AS total_duration
+FROM playlists p
+JOIN playlist_songs ps ON p.playlist_id = ps.playlist_id
+JOIN songs s ON ps.song_id = s.song_id
+GROUP BY p.name
+ORDER BY total_duration DESC
+LIMIT 1;
